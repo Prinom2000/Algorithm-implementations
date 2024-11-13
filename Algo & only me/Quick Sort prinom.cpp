@@ -9,7 +9,7 @@ void quickSort(int arr[], int left, int right) {
     int i = left + 1;
     int j = right;
 
-    while (i <= j) {
+    while (i <= j) {    // X na howa porjonto colbe 
         while (i <= j && arr[i] <= pivot) {
             i++;
         }
@@ -19,9 +19,9 @@ void quickSort(int arr[], int left, int right) {
         if (i < j) {
             std::swap(arr[i], arr[j]);
         }
-    }
+    } // ei loop theke ber howa mane iXj hoya gese
 
-    std::swap(arr[left], arr[j]);
+    std::swap(arr[left], arr[j]);  
 
     quickSort(arr, left, j - 1);
     quickSort(arr, j + 1, right);
