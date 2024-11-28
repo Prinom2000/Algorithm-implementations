@@ -1,29 +1,55 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
 
-void quickSort(int arr[], int left, int right) {
-    if (left >= right) {
-        return;
+using namespace std;
+
+// A structure to represent an activity
+struct Activity {
+    int start;
+    int finish;
+};
+
+// Comparator function to sort activities by finish time
+bool compare(Activity a, Activity b) {
+    return a.finish < b.finish;
+}
+
+// Function to find the maximum number of activities
+int activitySelection(Activity activities[], int n) {
+    // Sort activities by finish time
+    sort(activities, activities + n, compare);
+
+    int count = 1; // At least one activity can always be selected
+    int lastFinishTime = activities[0].finish;
+
+    // Iterate through the activities
+    for (int i = 1; i < n; i++) {
+        if (activities[i].start >= lastFinishTime) {
+            // Select the activity
+            count++;
+            lastFinishTime = activities[i].finish;
+        }
     }
+    return count;
+}
 
-    int pivot = arr[left];
-    int i = left + 1;
-    int j = right;
+int main() {
+    // Input: Start and finish times of activities
+    Activity activities[] = {
+        {10, 20},
+        {12, 25},
+        {20, 30}
+    };
+    int n = sizeof(activities) / sizeof(activities[0]); // Number of activities
 
-    while (i <= j) {    // X na howa porjonto colbe
-        while (i <= j && arr[i] <= pivot) {
-            i++;
-        }
-        while (i <= j && arr[j] > pivot) {
-            j--;
-        }
-        if (i < j) {
-            std::swap(arr[i], arr[j]);
-        }
-    } // ei loop theke ber howa mane iXj hoya gese
+    // Calculate the maximum number of activities
+    int maxActivities = activitySelection(activities, n);
 
-    std::swap(arr[left], arr[j]);
+    // Output the result
+    cout << "Maximum number of activities: " << maxActivities << endl;
 
-    quickSort(arr, left, j - 1);
+    return 0;
+} - 1);
     quickSort(arr, j + 1, right);
 }
 
